@@ -1,5 +1,6 @@
 package com.lio.BlogApi.utils;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ public class ResponseUtil {
             String message,
             T data) {
         return ApiResponse.builder()
+                .timestamp(LocalDateTime.now())
                 .status(status)
                 .statusCode(statusCode)
                 .message(message)
@@ -28,6 +30,7 @@ public class ResponseUtil {
             String message,
             Map<String, String> error) {
         return ApiResponse.builder()
+                .timestamp(LocalDateTime.now())
                 .status(status)
                 .statusCode(statusCode)
                 .message(message)

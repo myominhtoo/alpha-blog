@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.mail.MessagingException;
+import javax.transaction.Transactional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -54,6 +55,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public RegisterResponseDTO createAccount(RegisterRequestDTO registerRequestDTO)
             throws IOException, MessagingException {
         Account account = this.getRegisterAccountEntitiy(registerRequestDTO);
@@ -162,6 +164,7 @@ public class AccountServiceImpl implements AccountService {
                 .email(account.getEmail())
                 .createdDate(LocalDateTime.now())
                 .phone(account.getPhone())
+                .location(account.getLocation())
                 .build();
     }
 

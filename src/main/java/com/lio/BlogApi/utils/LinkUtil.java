@@ -10,7 +10,7 @@ public class LinkUtil {
             String accountEmail,
             String code) {
         EMAIL_VERIFICATION_LINK
-                .append("?" + SecretWord.EMAIL + "=" + accountEmail + "&" + SecretWord.CODE + "=" + code);
+                .append("?" + SecretWord.EMAIL.code() + "=" + accountEmail + "&" + SecretWord.CODE.code() + "=" + code);
         return EMAIL_VERIFICATION_LINK.toString();
     }
 
