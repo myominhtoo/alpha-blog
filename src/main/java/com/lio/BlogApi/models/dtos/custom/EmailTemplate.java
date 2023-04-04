@@ -1,7 +1,6 @@
 package com.lio.BlogApi.models.dtos.custom;
 
-import java.time.LocalDateTime;
-import java.util.Map;
+import java.util.Date;
 
 import lombok.Builder;
 import lombok.Data;
@@ -10,9 +9,9 @@ import lombok.Data;
 @Builder
 public class EmailTemplate {
 
-    private String template;
     private String content;
-    private LocalDateTime createdDate;
-    private Map<String, String> replaceWords;
+    private Date createdDate;
+    private String subject;
+    private String mailTo;
 
 }

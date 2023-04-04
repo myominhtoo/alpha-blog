@@ -1,17 +1,20 @@
 package com.lio.BlogApi.services.user.account;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.lio.BlogApi.models.dtos.custom.EmailTemplate;
 import com.lio.BlogApi.models.dtos.request.RegisterRequestDTO;
 import com.lio.BlogApi.models.dtos.response.ApiResponse;
 import com.lio.BlogApi.models.dtos.response.RegisterResponseDTO;
 import com.lio.BlogApi.models.entities.Account;
 import com.lio.BlogApi.models.enums.AccountStatus;
+import com.lio.BlogApi.models.enums.MailSubject;
 import com.lio.BlogApi.models.enums.Message;
 import com.lio.BlogApi.models.enums.Prefix;
 import com.lio.BlogApi.models.enums.ViewId;
@@ -51,6 +54,12 @@ public class AccountServiceImpl implements AccountService {
              * generate code to verify account back from email
              */
             String verificationCode = this.accountCodeService.generateVerificationCode(account);
+
+            EmailTemplate emailTemplate = EmailTemplate.builder()
+                    .createdDate(new Date())
+                    .mailTo(account.getEmail())
+                    .subject(MailSubject.EMAIL_VERIFICATION.msg())
+                    .build();
 
             return this.getRegisterResponse(account);
         }
