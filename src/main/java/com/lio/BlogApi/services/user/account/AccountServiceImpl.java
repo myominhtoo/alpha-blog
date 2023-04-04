@@ -1,8 +1,13 @@
 package com.lio.BlogApi.services.user.account;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+
+import javax.mail.MessagingException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +20,7 @@ import com.lio.BlogApi.models.dtos.response.RegisterResponseDTO;
 import com.lio.BlogApi.models.entities.Account;
 import com.lio.BlogApi.models.enums.AccountStatus;
 import com.lio.BlogApi.models.enums.MailSubject;
+import com.lio.BlogApi.models.enums.MailTemplate;
 import com.lio.BlogApi.models.enums.Message;
 import com.lio.BlogApi.models.enums.Prefix;
 import com.lio.BlogApi.models.enums.ViewId;
@@ -23,7 +29,10 @@ import com.lio.BlogApi.services.common.email.EmailService;
 import com.lio.BlogApi.services.user.accountCode.AccountCodeService;
 import com.lio.BlogApi.utils.ErrorMapUtil;
 import com.lio.BlogApi.utils.GeneratorUtil;
+import com.lio.BlogApi.utils.LinkUtil;
 import com.lio.BlogApi.utils.ResponseUtil;
+import com.lio.BlogApi.utils.TemplateUtil;
+import com.lio.BlogApi.utils.TextUtil;
 
 @Service("accountServiceForUser")
 public class AccountServiceImpl implements AccountService {
@@ -45,7 +54,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public RegisterResponseDTO createAccount(RegisterRequestDTO registerRequestDTO) {
+    public RegisterResponseDTO createAccount(RegisterRequestDTO registerRequestDTO)
+            throws IOException, MessagingException {
         Account account = this.getRegisterAccountEntitiy(registerRequestDTO);
         account = this.accountRepo.save(account);
 
@@ -54,12 +64,22 @@ public class AccountServiceImpl implements AccountService {
              * generate code to verify account back from email
              */
             String verificationCode = this.accountCodeService.generateVerificationCode(account);
+            Map<String, String> mappings = new HashMap<>();
+            mappings.put("name", account.getUsername());
+            mappings.put("link", LinkUtil.getVerificationLink(account.getEmail(), verificationCode));
+            /*
+             * getting email template for verification
+             */
+            String htmlTemplate = TemplateUtil.getEmailTemplate(MailTemplate.EMAIL_VERIFICATION.value());
 
             EmailTemplate emailTemplate = EmailTemplate.builder()
                     .createdDate(new Date())
                     .mailTo(account.getEmail())
                     .subject(MailSubject.EMAIL_VERIFICATION.msg())
+                    .content(TextUtil.bindString(htmlTemplate, mappings))
                     .build();
+
+            this.emailService.sendEmail(emailTemplate);
 
             return this.getRegisterResponse(account);
         }
