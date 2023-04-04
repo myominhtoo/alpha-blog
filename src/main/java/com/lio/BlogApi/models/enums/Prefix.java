@@ -4,7 +4,8 @@ public enum Prefix {
 
     USER("usr"),
     ADMIN("adm"),
-    BLOG("blg");
+    BLOG("blg"),
+    CODE("CD");
 
     private String value;
 

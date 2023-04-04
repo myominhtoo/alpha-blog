@@ -4,7 +4,8 @@ public enum ViewId {
 
     ACCOUNT(20),
     BLOG(30),
-    CATEGORY(10);
+    CATEGORY(10),
+    CODE(8);
 
     private Integer value;
 

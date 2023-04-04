@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lio.BlogApi.controllers.BaseController;
@@ -19,6 +20,7 @@ import com.lio.BlogApi.utils.ErrorMapUtil;
 import com.lio.BlogApi.utils.ResponseUtil;
 
 @RestController
+@RequestMapping(value = "/v1")
 public class AccountController extends BaseController {
 
     private final AccountService accountService;
@@ -27,6 +29,10 @@ public class AccountController extends BaseController {
         this.accountService = accountService;
     }
 
+    /*
+     * for account registration
+     * /api/register
+     */
     @PostMapping(value = "${api.account.register}")
     public ResponseEntity<ApiResponse<?>> registerAccount(
             @Valid @RequestBody RegisterRequestDTO registerRequestDTO,

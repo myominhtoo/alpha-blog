@@ -1,6 +1,7 @@
 package com.lio.BlogApi.models.entities;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,11 +13,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Entity
 @Table(name = "account_code")
 @Data
+@Builder
 @AllArgsConstructor
 public class AccountCode {
 
@@ -42,5 +45,11 @@ public class AccountCode {
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
+
+    /*
+     * new added column for expire date time
+     */
+    @Column(name = "expired_date")
+    private Date expiredDate;
 
 }

@@ -8,7 +8,7 @@ import com.lio.BlogApi.models.dtos.custom.EmailTemplate;
 public class EmailServiceImpl implements EmailService {
 
     @Override
-    public boolean sendEmail(EmailTemplate emailTemplate) {
+    public boolean sendEmail(String mailTo, EmailTemplate emailTemplate) {
         return false;
     }
 

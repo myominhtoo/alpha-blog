@@ -4,6 +4,6 @@ import com.lio.BlogApi.models.dtos.custom.EmailTemplate;
 
 public interface EmailService {
 
-    boolean sendEmail(EmailTemplate emailTemplate);
+    boolean sendEmail(String mailTo, EmailTemplate emailTemplate);
 
 }

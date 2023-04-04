@@ -17,6 +17,7 @@ import com.lio.BlogApi.models.enums.Prefix;
 import com.lio.BlogApi.models.enums.ViewId;
 import com.lio.BlogApi.repositories.account.AccountRepository;
 import com.lio.BlogApi.services.common.email.EmailService;
+import com.lio.BlogApi.services.user.accountCode.AccountCodeService;
 import com.lio.BlogApi.utils.ErrorMapUtil;
 import com.lio.BlogApi.utils.GeneratorUtil;
 import com.lio.BlogApi.utils.ResponseUtil;
@@ -27,14 +28,17 @@ public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepo;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final AccountCodeService accountCodeService;
 
     public AccountServiceImpl(
             AccountRepository accountRepo,
             PasswordEncoder passwordEncoder,
-            EmailService emailService) {
+            EmailService emailService,
+            AccountCodeService accountCodeService) {
         this.accountRepo = accountRepo;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
+        this.accountCodeService = accountCodeService;
     }
 
     @Override
@@ -43,6 +47,11 @@ public class AccountServiceImpl implements AccountService {
         account = this.accountRepo.save(account);
 
         if (account != null) {
+            /*
+             * generate code to verify account back from email
+             */
+            String verificationCode = this.accountCodeService.generateVerificationCode(account);
+
             return this.getRegisterResponse(account);
         }
 
@@ -101,7 +110,6 @@ public class AccountServiceImpl implements AccountService {
     /*
      * From here is just for method of object creation related with account
      */
-
     private Account getRegisterAccountEntitiy(RegisterRequestDTO registerRequestDTO) {
         Account account = Account.builder()
                 .viewId(GeneratorUtil.generateId(Prefix.USER.value(), ViewId.ACCOUNT.bound()))

@@ -12,4 +12,6 @@ public class Index {
             'z'
     };
 
+    private static String EMAIL_VERIFICATION_LINK = "http://localhost:8080/api/v1/verifiy-account";
+
 }
