@@ -8,20 +8,20 @@ import lombok.Data;
 @Data
 public class RegisterRequestDTO {
 
-    @NotNull(message = "{account.username.notNull}")
-    @NotEmpty(message = "{account.username.notEmpty}")
+    @NotNull(message = "{username.notnull}")
+    @NotEmpty(message = "{username.notempty}")
     private String username;
 
-    @NotNull(message = "{account.email.notNull}")
-    @NotEmpty(message = "{account.email.notEmpty}")
+    @NotNull(message = "{email.notnull}")
+    @NotEmpty(message = "{email.notempty}")
     private String email;
 
-    @NotNull(message = "{account.password.notNull}")
-    @NotEmpty(message = "{account.password.notEmpty}")
+    @NotNull(message = "{password.notnull}")
+    @NotEmpty(message = "{password.notempty}")
     private String password;
 
-    @NotNull(message = "{account.location.notNull}")
-    @NotEmpty(message = "{account.location.notEmpty}")
+    @NotNull(message = "{location.notnull}")
+    @NotEmpty(message = "{location.notempty}")
     private String location;
 
 }

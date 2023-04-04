@@ -1,5 +1,8 @@
 package com.lio.BlogApi.controllers.user.account;
 
+import java.io.IOException;
+
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -36,7 +39,7 @@ public class AccountController extends BaseController {
     @PostMapping(value = "${api.account.register}")
     public ResponseEntity<ApiResponse<?>> registerAccount(
             @Valid @RequestBody RegisterRequestDTO registerRequestDTO,
-            BindingResult bindingResult) {
+            BindingResult bindingResult) throws IOException, MessagingException {
 
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(
