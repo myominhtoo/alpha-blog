@@ -7,16 +7,23 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Calendar;
 
+import com.lio.BlogApi.services.common.jwtToken.JwtTokenService;
+import com.lio.BlogApi.services.common.jwtToken.JwtTokenServiceImpl;
+
 public class Test {
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(
-                new FileReader(new File("src/main/resources/static/mail-templates/mail-verification.txt")));
-        try {
-            System.out.println(bufferedReader.readLine().replace("[[name]]", "Myo Min Htoo"));
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        bufferedReader.close();
+        // BufferedReader bufferedReader = new BufferedReader(
+        // new FileReader(new
+        // File("src/main/resources/static/mail-templates/mail-verification.txt")));
+        // try {
+        // System.out.println(bufferedReader.readLine().replace("[[name]]", "Myo Min
+        // Htoo"));
+        // } catch (Exception e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
+        // bufferedReader.close();
+        JwtTokenService tokenService = new JwtTokenServiceImpl();
+        System.out.print(tokenService.getTokenPayload(null));
     }
 }

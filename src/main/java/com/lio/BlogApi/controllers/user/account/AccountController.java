@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lio.BlogApi.controllers.BaseController;
+import com.lio.BlogApi.models.dtos.request.LoginRequestDTO;
 import com.lio.BlogApi.models.dtos.request.RegisterRequestDTO;
 import com.lio.BlogApi.models.dtos.response.ApiResponse;
 import com.lio.BlogApi.models.dtos.response.RegisterResponseDTO;
 import com.lio.BlogApi.models.enums.Message;
 import com.lio.BlogApi.models.enums.SecretWord;
+import com.lio.BlogApi.services.common.jwtToken.JwtTokenService;
 import com.lio.BlogApi.services.user.account.AccountService;
 import com.lio.BlogApi.utils.ErrorMapUtil;
 import com.lio.BlogApi.utils.ResponseUtil;
@@ -30,9 +32,13 @@ import com.lio.BlogApi.utils.ResponseUtil;
 public class AccountController extends BaseController {
 
     private final AccountService accountService;
+    private final JwtTokenService jwtTokenService;
 
-    public AccountController(AccountService accountService) {
+    public AccountController(
+            AccountService accountService,
+            JwtTokenService jwtTokenService) {
         this.accountService = accountService;
+        this.jwtTokenService = jwtTokenService;
     }
 
     /*
@@ -99,6 +105,25 @@ public class AccountController extends BaseController {
         ApiResponse<?> verifyResponse = this.accountService.verifyRegisteredAccount(email, verificationCode);
 
         return new ResponseEntity<ApiResponse<?>>(verifyResponse, verifyResponse.getStatus());
+    }
+
+    /*
+     * for account login
+     * will get token as Response Header
+     */
+    @PostMapping(value = "${api.account.login}")
+    public ResponseEntity<ApiResponse<?>> loginAccount(
+            @Valid @RequestBody LoginRequestDTO loginRequestDTO,
+            BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(
+                    ResponseUtil.errorResponse(
+                            HttpStatus.BAD_REQUEST,
+                            HttpStatus.BAD_REQUEST.value(),
+                            Message.INVALID_REQUEST_BODY.value(),
+                            ErrorMapUtil.getErrorMapFromBindingResult(bindingResult)));
+        }
+        return null;
     }
 
 }

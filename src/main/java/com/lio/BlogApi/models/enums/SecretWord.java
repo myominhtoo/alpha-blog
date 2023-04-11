@@ -3,7 +3,8 @@ package com.lio.BlogApi.models.enums;
 public enum SecretWord {
 
     CODE("oced"),
-    EMAIL("meial");
+    EMAIL("meial"),
+    JWT_CLAIM("adat");
 
     private String code;
 

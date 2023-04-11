@@ -12,6 +12,12 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
 server.servlet.context-path: /api
+app:
+  jwt:
+    issuer: Alpha Blog
+    privateKey: VeWOmIVpViNLmiel70ezOxcs3C7jACmkCHCDYFjWuUHb4B090vQgXbupOX4A
+    sessionTime: 1440
+# sessionTime is in minute 24 hrs
 # #e2f3f5
 # #22d1ee
 # #3d5af1
