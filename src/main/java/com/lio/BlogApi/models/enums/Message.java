@@ -13,7 +13,10 @@ public enum Message {
     ACCOUNT_VERIFY_SUCCESS("Successfully verified account!"),
     ACCOUNT_VERIFY_FAIL("Failed to verify your account!"),
     INVALID_ACCOUNT("Invalid account!"),
-    LOGIN_SUCCESS("Successfully Logged In!");
+    LOGIN_SUCCESS("Successfully Logged In!"),
+    HAD_SUBSCRIBED("Recommend to use unique email to get more informations about our site!"),
+    SUBSCRIBE_SUCCESS("Successfully subscribed!"),
+    UNSUBSCRIBE_SUCCESS("Successfully cancelled subscription!");
 
     private String value;
 

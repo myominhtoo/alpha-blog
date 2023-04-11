@@ -10,12 +10,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "subscribers")
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Subscriber {
 
     @Id
@@ -25,10 +29,10 @@ public class Subscriber {
     @Column(name = "view_id", unique = true)
     private String viewId;
 
-    @Column(name = "email", unique = true)
+    @Column(name = "email", unique = true, length = 30)
     private String email;
 
-    @Column(name = "location")
+    @Column(name = "location", length = 20)
     private String location;
 
     @Column(name = "created_date")

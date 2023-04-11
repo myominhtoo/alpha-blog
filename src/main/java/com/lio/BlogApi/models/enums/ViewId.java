@@ -6,7 +6,8 @@ public enum ViewId {
     BLOG(30),
     CATEGORY(10),
     CODE(8),
-    ACC_HISTORY(6);
+    ACC_HISTORY(6),
+    SUBSCRIBER(7);
 
     private Integer value;
 

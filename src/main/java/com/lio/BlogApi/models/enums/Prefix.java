@@ -6,7 +6,8 @@ public enum Prefix {
     ADMIN("adm"),
     BLOG("blg"),
     CODE("CD"),
-    ACC_HISTORY("achs");
+    ACC_HISTORY("achs"),
+    SUBSCRIBER("sub");
 
     private String value;
 
