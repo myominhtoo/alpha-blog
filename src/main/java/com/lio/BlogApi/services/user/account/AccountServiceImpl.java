@@ -14,13 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.lio.BlogApi.models.dtos.custom.AppUserDetails;
 import com.lio.BlogApi.models.dtos.custom.EmailTemplate;
 import com.lio.BlogApi.models.dtos.request.LoginRequestDTO;
 import com.lio.BlogApi.models.dtos.request.RegisterRequestDTO;
@@ -43,7 +39,10 @@ import com.lio.BlogApi.utils.ResponseUtil;
 import com.lio.BlogApi.utils.TemplateUtil;
 import com.lio.BlogApi.utils.TextUtil;
 
+import lombok.AllArgsConstructor;
+
 @Service("accountServiceForUser")
+@AllArgsConstructor
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepo;
@@ -51,19 +50,6 @@ public class AccountServiceImpl implements AccountService {
     private final EmailService emailService;
     private final AccountCodeService accountCodeService;
     private final Optional<AuthenticationManager> authenticationManager$;
-
-    public AccountServiceImpl(
-            AccountRepository accountRepo,
-            PasswordEncoder passwordEncoder,
-            EmailService emailService,
-            AccountCodeService accountCodeService,
-            Optional<AuthenticationManager> authenticationManager$) {
-        this.accountRepo = accountRepo;
-        this.passwordEncoder = passwordEncoder;
-        this.emailService = emailService;
-        this.accountCodeService = accountCodeService;
-        this.authenticationManager$ = authenticationManager$;
-    }
 
     @Override
     @Transactional

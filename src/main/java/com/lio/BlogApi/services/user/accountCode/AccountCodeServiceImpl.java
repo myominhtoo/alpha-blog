@@ -20,18 +20,14 @@ import com.lio.BlogApi.repositories.accountCode.AccountCodeRepository;
 import com.lio.BlogApi.services.user.accountHistory.AccountHistoryService;
 import com.lio.BlogApi.utils.GeneratorUtil;
 
+import lombok.AllArgsConstructor;
+
 @Service("accountCodeService")
+@AllArgsConstructor
 public class AccountCodeServiceImpl implements AccountCodeService {
 
     private final AccountCodeRepository accountCodeRepo;
     private final AccountHistoryService accountHistoryService;
-
-    public AccountCodeServiceImpl(
-            AccountCodeRepository accountCodeRepo,
-            AccountHistoryService accountHistoryService) {
-        this.accountCodeRepo = accountCodeRepo;
-        this.accountHistoryService = accountHistoryService;
-    }
 
     @Override
     public String generateVerificationCode(Account account) {
