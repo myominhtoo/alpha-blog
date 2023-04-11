@@ -11,7 +11,9 @@ public enum Message {
     REGISTER_SUCCESS("Successfully Registered,Please check your email to verify account!"),
     INVALID_REQUEST("Invalid Request,Please use valid information!"),
     ACCOUNT_VERIFY_SUCCESS("Successfully verified account!"),
-    ACCOUNT_VERIFY_FAIL("Failed to verify your account!");
+    ACCOUNT_VERIFY_FAIL("Failed to verify your account!"),
+    INVALID_ACCOUNT("Invalid account!"),
+    LOGIN_SUCCESS("Successfully Logged In!");
 
     private String value;
 

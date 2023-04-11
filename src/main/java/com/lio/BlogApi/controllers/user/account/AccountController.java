@@ -6,8 +6,10 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lio.BlogApi.controllers.BaseController;
+import com.lio.BlogApi.models.dtos.custom.AppUserDetails;
 import com.lio.BlogApi.models.dtos.request.LoginRequestDTO;
 import com.lio.BlogApi.models.dtos.request.RegisterRequestDTO;
 import com.lio.BlogApi.models.dtos.response.ApiResponse;
@@ -25,6 +28,7 @@ import com.lio.BlogApi.models.enums.SecretWord;
 import com.lio.BlogApi.services.common.jwtToken.JwtTokenService;
 import com.lio.BlogApi.services.user.account.AccountService;
 import com.lio.BlogApi.utils.ErrorMapUtil;
+import com.lio.BlogApi.utils.HeaderUtil;
 import com.lio.BlogApi.utils.ResponseUtil;
 
 @RestController
@@ -115,6 +119,7 @@ public class AccountController extends BaseController {
     public ResponseEntity<ApiResponse<?>> loginAccount(
             @Valid @RequestBody LoginRequestDTO loginRequestDTO,
             BindingResult bindingResult) {
+
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(
                     ResponseUtil.errorResponse(
@@ -123,7 +128,20 @@ public class AccountController extends BaseController {
                             Message.INVALID_REQUEST_BODY.value(),
                             ErrorMapUtil.getErrorMapFromBindingResult(bindingResult)));
         }
-        return null;
+
+        Authentication auth = this.accountService.loginAccount(loginRequestDTO);
+        AppUserDetails appUser = (AppUserDetails) auth.getPrincipal();
+        appUser.setToken(this.jwtTokenService.generateToken(HeaderUtil.getMapFromPrincipal(appUser)));
+
+        HttpHeaders headers = HeaderUtil.getHeadersFromMap(HeaderUtil.getAuthenticationHeader(appUser));
+
+        return new ResponseEntity<ApiResponse<?>>(
+                ResponseUtil.response(
+                        HttpStatus.OK,
+                        HttpStatus.OK.value(),
+                        Message.LOGIN_SUCCESS.value(),
+                        null),
+                headers, HttpStatus.OK);
     }
 
 }

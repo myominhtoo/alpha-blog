@@ -11,10 +11,18 @@ import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.lio.BlogApi.models.dtos.custom.AppUserDetails;
 import com.lio.BlogApi.models.dtos.custom.EmailTemplate;
+import com.lio.BlogApi.models.dtos.request.LoginRequestDTO;
 import com.lio.BlogApi.models.dtos.request.RegisterRequestDTO;
 import com.lio.BlogApi.models.dtos.response.ApiResponse;
 import com.lio.BlogApi.models.dtos.response.RegisterResponseDTO;
@@ -42,16 +50,19 @@ public class AccountServiceImpl implements AccountService {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
     private final AccountCodeService accountCodeService;
+    private final Optional<AuthenticationManager> authenticationManager$;
 
     public AccountServiceImpl(
             AccountRepository accountRepo,
             PasswordEncoder passwordEncoder,
             EmailService emailService,
-            AccountCodeService accountCodeService) {
+            AccountCodeService accountCodeService,
+            Optional<AuthenticationManager> authenticationManager$) {
         this.accountRepo = accountRepo;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
         this.accountCodeService = accountCodeService;
+        this.authenticationManager$ = authenticationManager$;
     }
 
     @Override
@@ -179,6 +190,12 @@ public class AccountServiceImpl implements AccountService {
                 HttpStatus.BAD_REQUEST.value(),
                 Message.ACCOUNT_VERIFY_FAIL.value(),
                 errorMap);
+    }
+
+    public Authentication loginAccount(LoginRequestDTO loginRequestDTO) {
+        Authentication auth = this.authenticationManager$.get().authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequestDTO.getEmail(), loginRequestDTO.getPassword()));
+        return auth;
     }
 
     /*

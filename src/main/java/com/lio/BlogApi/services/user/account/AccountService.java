@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import javax.mail.MessagingException;
 
+import org.springframework.security.core.Authentication;
+
+import com.lio.BlogApi.models.dtos.request.LoginRequestDTO;
 import com.lio.BlogApi.models.dtos.request.RegisterRequestDTO;
 import com.lio.BlogApi.models.dtos.response.ApiResponse;
 import com.lio.BlogApi.models.dtos.response.RegisterResponseDTO;
@@ -24,4 +27,5 @@ public interface AccountService {
 
     ApiResponse<?> verifyRegisteredAccount(String email, String verificationCode);
 
+    Authentication loginAccount(LoginRequestDTO loginRequestDTO);
 }
