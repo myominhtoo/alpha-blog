@@ -1,4 +1,4 @@
-package com.lio.BlogApi.repositories.accountHistory;
+package com.lio.BlogApi.repositories.accountCode;
 
 import java.util.List;
 import java.util.Optional;

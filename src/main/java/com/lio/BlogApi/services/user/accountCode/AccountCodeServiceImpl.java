@@ -16,7 +16,7 @@ import com.lio.BlogApi.models.enums.CodeStatus;
 import com.lio.BlogApi.models.enums.History;
 import com.lio.BlogApi.models.enums.Prefix;
 import com.lio.BlogApi.models.enums.ViewId;
-import com.lio.BlogApi.repositories.accountHistory.AccountCodeRepository;
+import com.lio.BlogApi.repositories.accountCode.AccountCodeRepository;
 import com.lio.BlogApi.services.user.accountHistory.AccountHistoryService;
 import com.lio.BlogApi.utils.GeneratorUtil;
 
