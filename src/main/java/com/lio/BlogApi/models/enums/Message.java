@@ -8,7 +8,10 @@ public enum Message {
     ACCOUNT_LOCKED("Your account was temporarily locked!"),
     ACCOUNT_NEED_VERIFICATION("You need to verify your account!"),
     UNKNOWN_ERROR("Unknown error occured!"),
-    REGISTER_SUCCESS("Successfully Registered,Please check your email to verify account!");
+    REGISTER_SUCCESS("Successfully Registered,Please check your email to verify account!"),
+    INVALID_REQUEST("Invalid Request,Please use valid information!"),
+    ACCOUNT_VERIFY_SUCCESS("Successfully verified account!"),
+    ACCOUNT_VERIFY_FAIL("Failed to verify your account!");
 
     private String value;
 

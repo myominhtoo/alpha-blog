@@ -20,4 +20,8 @@ public interface AccountService {
 
     RegisterResponseDTO createAccount(RegisterRequestDTO registerRequestDTO) throws IOException, MessagingException;
 
+    ApiResponse<?> validateRegisteredVerification(String email, String verificationCode);
+
+    ApiResponse<?> verifyRegisteredAccount(String email, String verificationCode);
+
 }

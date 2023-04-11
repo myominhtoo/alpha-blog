@@ -1,16 +1,12 @@
 package com.lio.BlogApi.models.enums;
 
-public enum Prefix {
+public enum History {
 
-    USER("usr"),
-    ADMIN("adm"),
-    BLOG("blg"),
-    CODE("CD"),
-    ACC_HISTORY("achs");
+    ACCOUNT_VERIFIED("Account was successfully verified!");
 
     private String value;
 
-    private Prefix(String value) {
+    private History(String value) {
         this.value = value;
     }
 

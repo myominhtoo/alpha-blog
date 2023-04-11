@@ -3,11 +3,13 @@ package com.lio.BlogApi.controllers.user.account;
 import java.io.IOException;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import com.lio.BlogApi.models.dtos.request.RegisterRequestDTO;
 import com.lio.BlogApi.models.dtos.response.ApiResponse;
 import com.lio.BlogApi.models.dtos.response.RegisterResponseDTO;
 import com.lio.BlogApi.models.enums.Message;
+import com.lio.BlogApi.models.enums.SecretWord;
 import com.lio.BlogApi.services.user.account.AccountService;
 import com.lio.BlogApi.utils.ErrorMapUtil;
 import com.lio.BlogApi.utils.ResponseUtil;
@@ -34,7 +37,7 @@ public class AccountController extends BaseController {
 
     /*
      * for account registration
-     * /api/register
+     * /api/{version}/register
      */
     @PostMapping(value = "${api.account.register}")
     public ResponseEntity<ApiResponse<?>> registerAccount(
@@ -74,6 +77,28 @@ public class AccountController extends BaseController {
                         Message.REGISTER_SUCCESS.value(),
                         registerResponseDTO));
 
+    }
+
+    /*
+     * for confirming verification
+     * /api/{version}/verify-account
+     */
+    @GetMapping(value = "${api.account.verifyAccount}")
+    public ResponseEntity<ApiResponse<?>> verifyRegisteredAccount(
+            HttpServletRequest request) {
+        final String verificationCode = request.getParameter(SecretWord.CODE.code());
+        final String email = request.getParameter(SecretWord.EMAIL.code());
+
+        ApiResponse<?> validationResponse = this.accountService
+                .validateRegisteredVerification(email, verificationCode);
+
+        if (validationResponse != null) {
+            return ResponseEntity.badRequest().body(validationResponse);
+        }
+
+        ApiResponse<?> verifyResponse = this.accountService.verifyRegisteredAccount(email, verificationCode);
+
+        return new ResponseEntity<ApiResponse<?>>(verifyResponse, verifyResponse.getStatus());
     }
 
 }

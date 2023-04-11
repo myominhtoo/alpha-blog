@@ -13,19 +13,24 @@ import org.springframework.stereotype.Service;
 import com.lio.BlogApi.models.entities.Account;
 import com.lio.BlogApi.models.entities.AccountCode;
 import com.lio.BlogApi.models.enums.CodeStatus;
+import com.lio.BlogApi.models.enums.History;
 import com.lio.BlogApi.models.enums.Prefix;
 import com.lio.BlogApi.models.enums.ViewId;
-import com.lio.BlogApi.repositories.account.AccountCodeRepository;
+import com.lio.BlogApi.repositories.accountHistory.AccountCodeRepository;
+import com.lio.BlogApi.services.user.accountHistory.AccountHistoryService;
 import com.lio.BlogApi.utils.GeneratorUtil;
 
 @Service("accountCodeService")
 public class AccountCodeServiceImpl implements AccountCodeService {
 
     private final AccountCodeRepository accountCodeRepo;
+    private final AccountHistoryService accountHistoryService;
 
     public AccountCodeServiceImpl(
-            AccountCodeRepository accountCodeRepo) {
+            AccountCodeRepository accountCodeRepo,
+            AccountHistoryService accountHistoryService) {
         this.accountCodeRepo = accountCodeRepo;
+        this.accountHistoryService = accountHistoryService;
     }
 
     @Override
@@ -57,9 +62,8 @@ public class AccountCodeServiceImpl implements AccountCodeService {
     }
 
     @Override
-    public boolean isExpiredCode(String code, String accountViewId) {
-        Optional<AccountCode> accoundCode$ = this.accountCodeRepo.findByCodeAndAccountViewId(code, accountViewId);
-        return accoundCode$.isPresent() ? accoundCode$.get().getExpiredDate().before(new Date()) : true;
+    public boolean isExpiredCode(AccountCode accountCode) {
+        return accountCode.getExpiredDate().before(new Date());
     }
 
     @Override
@@ -74,6 +78,39 @@ public class AccountCodeServiceImpl implements AccountCodeService {
                     this.accountCodeRepo.save(accountCode);
                 });
 
+    }
+
+    @Override
+    @Transactional
+    public boolean verifyAccountCode(String accountViewId, String code) {
+        /*
+         * getting active code for account
+         */
+        Optional<AccountCode> accountCode$ = this.accountCodeRepo
+                .findByCodeAndAccountViewIdAndIsActiveTrue(code, accountViewId);
+
+        /*
+         * verification will be false if empty and expire code
+         */
+        if (accountCode$.isEmpty() || this.isExpiredCode(accountCode$.get()))
+            return false;
+
+        /*
+         * will confirm if code will be equal
+         */
+        if (accountCode$.get().getCode().equals(code)) {
+            AccountCode accountCode = accountCode$.get();
+            accountCode.setActive(false);
+            accountCode.setUpdatedDate(LocalDateTime.now());
+
+            this.accountCodeRepo.save(accountCode);
+
+            this.accountHistoryService
+                    .saveHistory(accountCode$.get().getAccount(), History.ACCOUNT_VERIFIED.value());
+            return true;
+        }
+
+        return false;
     }
 
 }

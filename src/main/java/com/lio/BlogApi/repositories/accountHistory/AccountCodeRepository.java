@@ -1,4 +1,4 @@
-package com.lio.BlogApi.repositories.account;
+package com.lio.BlogApi.repositories.accountHistory;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +13,6 @@ public interface AccountCodeRepository extends JpaRepository<AccountCode, Intege
 
     List<AccountCode> findByAccountId(Integer accountId);
 
-    Optional<AccountCode> findByCodeAndAccountViewId(String code, String accountViewId);
+    Optional<AccountCode> findByCodeAndAccountViewIdAndIsActiveTrue(String code, String accountViewId);
 
 }

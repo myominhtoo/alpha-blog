@@ -138,6 +138,49 @@ public class AccountServiceImpl implements AccountService {
         return null;
     }
 
+    @Override
+    public ApiResponse<?> validateRegisteredVerification(String email, String verificationCode) {
+        Optional<Account> savedAccount = Optional.empty();
+        if (email != null)
+            savedAccount = this.accountRepo.findByEmail(email);
+        if (email == null ||
+                verificationCode == null ||
+                savedAccount.isEmpty() ||
+                verificationCode.length() != (ViewId.CODE.bound() + Prefix.CODE.value().length())) {
+            return this.getValidateRegisteredVerificationResponse();
+        }
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public ApiResponse<?> verifyRegisteredAccount(String email, String verificationCode) {
+        Account savedAccount = this.accountRepo.findByEmail(email).get();
+
+        if (this.accountCodeService.verifyAccountCode(savedAccount.getViewId(), verificationCode)) {
+            savedAccount.setAccountStatus(AccountStatus.VERIFED.value());
+            savedAccount.setActive(true);
+            savedAccount.setUpdatedDate(LocalDateTime.now());
+
+            this.accountRepo.save(savedAccount);
+
+            return ResponseUtil.response(
+                    HttpStatus.OK,
+                    HttpStatus.OK.value(),
+                    Message.ACCOUNT_VERIFY_SUCCESS.value(),
+                    null);
+        }
+
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("error", Message.ACCOUNT_VERIFY_FAIL.value());
+
+        return ResponseUtil.errorResponse(
+                HttpStatus.BAD_REQUEST,
+                HttpStatus.BAD_REQUEST.value(),
+                Message.ACCOUNT_VERIFY_FAIL.value(),
+                errorMap);
+    }
+
     /*
      * From here is just for method of object creation related with account
      */
@@ -166,6 +209,17 @@ public class AccountServiceImpl implements AccountService {
                 .phone(account.getPhone())
                 .location(account.getLocation())
                 .build();
+    }
+
+    private ApiResponse<?> getValidateRegisteredVerificationResponse() {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("error", Message.INVALID_REQUEST.value());
+
+        return ResponseUtil.errorResponse(
+                HttpStatus.BAD_REQUEST,
+                HttpStatus.BAD_REQUEST.value(),
+                Message.INVALID_REQUEST.value(),
+                errorMap);
     }
 
     /*

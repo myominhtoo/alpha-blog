@@ -15,12 +15,14 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "account_code")
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class AccountCode {
 
     @Id
