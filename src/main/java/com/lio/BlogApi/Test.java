@@ -9,6 +9,7 @@ import java.util.Calendar;
 
 import com.lio.BlogApi.services.common.jwtToken.JwtTokenService;
 import com.lio.BlogApi.services.common.jwtToken.JwtTokenServiceImpl;
+import com.lio.BlogApi.utils.TextUtil;
 
 public class Test {
     public static void main(String[] args) throws IOException {
@@ -23,7 +24,8 @@ public class Test {
         // e.printStackTrace();
         // }
         // bufferedReader.close();
-        JwtTokenService tokenService = new JwtTokenServiceImpl();
-        System.out.print(tokenService.getTokenPayload(null));
+        // JwtTokenService tokenService = new JwtTokenServiceImpl();
+        // System.out.print(tokenService.getTokenPayload(null));
+        // System.out.println(TextUtil.makeKeyword("react native is very hot now"));
     }
 }

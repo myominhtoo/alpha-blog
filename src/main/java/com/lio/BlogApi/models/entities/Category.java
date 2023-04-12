@@ -10,11 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "categories")
 @Data
+@Builder
+@NoArgsConstructor
 @AllArgsConstructor
 public class Category {
 
@@ -31,7 +35,7 @@ public class Category {
     @Column(name = "view_id", unique = true)
     private String viewId;
 
-    @Column(name = "cover_image_name", unique = true)
+    @Column(name = "cover_image_name", unique = true, nullable = true)
     private String coverImageName;
 
     @Column(name = "created_date")
@@ -39,5 +43,11 @@ public class Category {
 
     @Column(name = "updated_date")
     private LocalDateTime updatedDate;
+
+    /*
+     * edited column for deleting
+     */
+    @Column(name = "is_delete")
+    private boolean isDelete;
 
 }

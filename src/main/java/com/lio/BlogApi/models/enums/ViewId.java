@@ -4,10 +4,10 @@ public enum ViewId {
 
     ACCOUNT(20),
     BLOG(30),
-    CATEGORY(10),
     CODE(8),
     ACC_HISTORY(6),
-    SUBSCRIBER(7);
+    SUBSCRIBER(7),
+    CATEGORY(6);
 
     private Integer value;
 

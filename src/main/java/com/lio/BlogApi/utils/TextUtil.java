@@ -19,4 +19,16 @@ public class TextUtil {
         return result;
     }
 
+    public static String makeKeyword(String strToMakeKeyword) {
+        String[] splits = strToMakeKeyword.toLowerCase().split(" ");
+        StringBuffer stringBuffer = new StringBuffer();
+
+        for (int index = 0; index < splits.length; index++) {
+            stringBuffer.append(splits[index]);
+            if (index != splits.length - 1)
+                stringBuffer.append("-");
+        }
+        return stringBuffer.toString();
+    }
+
 }

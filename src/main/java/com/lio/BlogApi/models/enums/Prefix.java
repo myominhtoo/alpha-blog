@@ -7,7 +7,8 @@ public enum Prefix {
     BLOG("blg"),
     CODE("CD"),
     ACC_HISTORY("achs"),
-    SUBSCRIBER("sub");
+    SUBSCRIBER("sub"),
+    CATEGORY("cate");
 
     private String value;
 
