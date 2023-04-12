@@ -12,6 +12,8 @@ public enum Message {
 
     REGISTER_SUCCESS("Successfully Registered,Please check your email to verify account!"),
     INVALID_REQUEST("Invalid Request,Please use valid information!"),
+    UPLOAD_FAILED("Failed to upload file!"),
+    UPLOAD_SUCCESS("Successfully Uploaded!"),
 
     ACCOUNT_VERIFY_SUCCESS("Successfully verified account!"),
     ACCOUNT_VERIFY_FAIL("Failed to verify your account!"),
@@ -28,6 +30,7 @@ public enum Message {
     DELETE_CATEGORY_SUCCESS("Successfully deleted category!"),
     UNDELETE_CATEGORY_SUCCESS("Successfully restored category!"),
     DUPLICATE_CATEGORY_NAME("Please use unique category name to be more informative!"),
+    INVALID_FILE_FORMAT("Invalid file format!"),
 
     SUCCESS("Success!");
 

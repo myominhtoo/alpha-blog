@@ -8,7 +8,9 @@ public enum Prefix {
     CODE("CD"),
     ACC_HISTORY("achs"),
     SUBSCRIBER("sub"),
-    CATEGORY("cate");
+    CATEGORY("cate"),
+    CATEGORY_IMAGE("IMAGE_CATEGORY"),
+    BLOG_IMAGE("IMAGE_BLOG");
 
     private String value;
 

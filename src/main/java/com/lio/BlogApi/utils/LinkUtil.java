@@ -14,4 +14,15 @@ public class LinkUtil {
         return EMAIL_VERIFICATION_LINK.toString();
     }
 
+    public static String getAssetsPath(String targetPath) {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer
+                .append(
+                        System.getProperties().getProperty("java.class.path")
+                                .split(";")[0].replace("target\\classes",
+                                        "assets"));
+        stringBuffer.append(targetPath);
+        return stringBuffer.toString();
+    }
+
 }

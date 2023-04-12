@@ -35,4 +35,10 @@ public class GeneratorUtil {
         return generatedId.toString();
     }
 
+    public static String generateImageName(String prefix, Integer bound, String extension) {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(generateId(prefix, bound));
+        stringBuffer.append(extension);
+        return stringBuffer.toString();
+    }
 }

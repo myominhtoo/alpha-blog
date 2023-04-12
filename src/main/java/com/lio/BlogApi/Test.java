@@ -9,7 +9,11 @@ import java.util.Calendar;
 
 import com.lio.BlogApi.services.common.jwtToken.JwtTokenService;
 import com.lio.BlogApi.services.common.jwtToken.JwtTokenServiceImpl;
+import com.lio.BlogApi.utils.LinkUtil;
 import com.lio.BlogApi.utils.TextUtil;
+
+import static com.lio.BlogApi.models.constants.Index.CATEGORY_IMAGE_PATH;
+import static com.lio.BlogApi.models.constants.Index.BLOG_IMAGE_PATH;
 
 public class Test {
     public static void main(String[] args) throws IOException {
@@ -27,5 +31,9 @@ public class Test {
         // JwtTokenService tokenService = new JwtTokenServiceImpl();
         // System.out.print(tokenService.getTokenPayload(null));
         // System.out.println(TextUtil.makeKeyword("react native is very hot now"));
+        // System.out.print(System.getProperties().getProperty("java.class.path").split(";")[0].replace("target\\classes",
+        // "assets"));
+        // System.out.println(new
+        // File(LinkUtil.getAssetsPath(CATEGORY_IMAGE_PATH)).isDirectory());
     }
 }

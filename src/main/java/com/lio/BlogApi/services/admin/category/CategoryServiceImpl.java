@@ -1,5 +1,6 @@
 package com.lio.BlogApi.services.admin.category;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -8,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.lio.BlogApi.models.dtos.request.CategoryRequestDTO;
 import com.lio.BlogApi.models.dtos.request.CategoryUpdateRequestDTO;
@@ -19,9 +21,11 @@ import com.lio.BlogApi.models.enums.Prefix;
 import com.lio.BlogApi.models.enums.ViewId;
 import com.lio.BlogApi.repositories.category.CategoryRepository;
 import com.lio.BlogApi.utils.ErrorMapUtil;
+import com.lio.BlogApi.utils.FileUtil;
 import com.lio.BlogApi.utils.GeneratorUtil;
 import com.lio.BlogApi.utils.ResponseUtil;
 import com.lio.BlogApi.utils.TextUtil;
+import static com.lio.BlogApi.models.constants.Index.CATEGORY_IMAGE_PATH;
 
 import lombok.AllArgsConstructor;
 
@@ -93,8 +97,44 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public ApiResponse<?> updateCategory(CategoryUpdateRequestDTO categoryUpdateRequestDTO) {
+    public ApiResponse<?> uploadImage(MultipartFile file) throws IOException {
+        if (!FileUtil.isValidFile(file)) {
+            return ResponseUtil.errorResponse(
+                    HttpStatus.BAD_REQUEST,
+                    HttpStatus.BAD_REQUEST.value(),
+                    Message.INVALID_FILE_FORMAT.value(),
+                    ErrorMapUtil.getErrorMapFromValue(Message.INVALID_FILE_FORMAT.value()));
+        }
+
+        String fileName = GeneratorUtil.generateImageName(
+                Prefix.CATEGORY_IMAGE.value(),
+                ViewId.CATEGORY_IMAGE.bound(),
+                ".jpg");
+
+        boolean uploadStatus = FileUtil.uploadFile(
+                file,
+                fileName,
+                CATEGORY_IMAGE_PATH);
+
+        if (!uploadStatus) {
+            return ResponseUtil.errorResponse(
+                    HttpStatus.BAD_REQUEST,
+                    HttpStatus.BAD_REQUEST.value(),
+                    Message.UPLOAD_FAILED.value(),
+                    ErrorMapUtil.getErrorMapFromValue(Message.UPLOAD_FAILED.value()));
+        }
+
+        return ResponseUtil.response(
+                HttpStatus.OK,
+                HttpStatus.OK.value(),
+                Message.UPLOAD_SUCCESS.value(),
+                fileName);
+    }
+
+    @Override
+    public ApiResponse<?> updateCategory(CategoryUpdateRequestDTO categoryUpdateRequestDTO, String imageName) {
         Optional<Category> category$ = this.categoryRepo.findByViewId(categoryUpdateRequestDTO.getCategoryId());
+
         if (category$.isEmpty()) {
             return ResponseUtil.errorResponse(
                     HttpStatus.BAD_REQUEST,
@@ -107,12 +147,21 @@ public class CategoryServiceImpl implements CategoryService {
         category.setCategoryName(categoryUpdateRequestDTO.getCategoryName());
         category.setKeyword(TextUtil.makeKeyword(category.getCategoryName()));
 
+        if (imageName != null)
+            category.setCoverImageName(imageName);
+
         this.categoryRepo.save(category);
         return ResponseUtil.response(
                 HttpStatus.OK,
                 HttpStatus.OK.value(),
                 Message.UPDATE_CATEGORY_SUCCESS.value(),
                 getCategoryResponse(category));
+    }
+
+    @Override
+    public Category getCategoryById(String categoryId) {
+        Optional<Category> category$ = this.categoryRepo.findByViewId(categoryId);
+        return category$.isPresent() ? category$.get() : null;
     }
 
     /*

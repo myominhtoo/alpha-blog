@@ -17,4 +17,12 @@ public class Index {
 
         public static String EMAIL_TEMPLATE_SOURCE_PATH = "src/main/resources/static/mail-templates/";
 
+        public static String CATEGORY_IMAGE_PATH = "\\images\\category\\";
+
+        public static String BLOG_IMAGE_PATH = "\\images\\blog\\";
+
+        public static String ALLOWED_IMAGE_EXTENSIONS = "image/png;image/jpg;image/jpeg";
+
+        public static Integer MAX_IMAGE_SIZE = 5000000; // ~ 5 MB
+
 }
