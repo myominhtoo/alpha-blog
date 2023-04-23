@@ -4,7 +4,9 @@ public enum SecretWord {
 
     CODE("oced"),
     EMAIL("meial"),
-    JWT_CLAIM("adat");
+    JWT_CLAIM("adat"),
+    TRUE("0001"),
+    FALSE("0000");
 
     private String code;
 

@@ -25,6 +25,8 @@ public interface CategoryService {
 
     Category getCategoryById(String categoryId);
 
+    Category getCategoryById(Integer categoryId);
+
     List<CategoryResponseDTO> getAllCategories();
 
     ApiResponse<?> uploadImage(MultipartFile file) throws IOException;

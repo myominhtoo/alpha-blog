@@ -164,6 +164,12 @@ public class CategoryServiceImpl implements CategoryService {
         return category$.isPresent() ? category$.get() : null;
     }
 
+    @Override
+    public Category getCategoryById(Integer categoryId) {
+        Optional<Category> category$ = this.categoryRepo.findById(categoryId);
+        return category$.isPresent() ? category$.get() : null;
+    }
+
     /*
      * just for creating object
      */

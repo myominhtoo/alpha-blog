@@ -35,5 +35,8 @@ public class Test {
         // "assets"));
         // System.out.println(new
         // File(LinkUtil.getAssetsPath(CATEGORY_IMAGE_PATH)).isDirectory());
+        System.out.println(new StringBuffer().toString().isEmpty());
+
+        System.out.println(args[0]);
     }
 }

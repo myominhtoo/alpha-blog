@@ -30,7 +30,14 @@ public enum Message {
     DELETE_CATEGORY_SUCCESS("Successfully deleted category!"),
     UNDELETE_CATEGORY_SUCCESS("Successfully restored category!"),
     DUPLICATE_CATEGORY_NAME("Please use unique category name to be more informative!"),
+
     INVALID_FILE_FORMAT("Invalid file format!"),
+
+    CREATE_BLOG_SUCCESS("Successfully added new blog!"),
+    UPDATE_BLOG_SUCCESS("Successfully updated blog!"),
+    DUPLICATE_BLOG_TITLE("Please use unique blog's title to be more informative!"),
+    DELETE_BLOG_SUCCESS("Successfully deleted blog!"),
+    UNDELETE_BLOG_SUCCESS("Successfully restored blog!"),
 
     SUCCESS("Success!");
 
