@@ -39,9 +39,14 @@ public enum Message {
     DELETE_BLOG_SUCCESS("Successfully deleted blog!"),
     UNDELETE_BLOG_SUCCESS("Successfully restored blog!"),
 
+    DELETE_REVIEW_SUCCESS("Successfully deleted review!"),
+    CREATE_REVIEW_SUCCESS("Successfully added review!"),
+
+    UPDATED_REVIEW_SUCCESS("Successfully edited review!"),
+
     SUCCESS("Success!");
 
-    private String value;
+    private final String value;
 
     private Message(String value) {
         this.value = value;

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 
-import com.lio.BlogApi.models.dtos.response.ApiResponse;
+import com.lio.BlogApi.models.dtos.response.general.ApiResponse;
 
 public class ResponseUtil {
 

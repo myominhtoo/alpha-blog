@@ -1,9 +1,9 @@
-package com.lio.BlogApi.models.dtos.response;
+package com.lio.BlogApi.models.dtos.response.blog;
 
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.lio.BlogApi.models.entities.Category;
+import com.lio.BlogApi.models.dtos.response.category.CategoryResponseDTO;
 
 import lombok.Builder;
 import lombok.Data;

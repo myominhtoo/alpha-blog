@@ -1,4 +1,4 @@
-package com.lio.BlogApi.models.dtos.response;
+package com.lio.BlogApi.models.dtos.response.user;
 
 import java.time.LocalDateTime;
 

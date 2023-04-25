@@ -10,7 +10,9 @@ public enum Prefix {
     SUBSCRIBER("sub"),
     CATEGORY("cate"),
     CATEGORY_IMAGE("IMAGE_CATEGORY"),
-    BLOG_IMAGE("IMAGE_BLOG");
+    BLOG_IMAGE("IMAGE_BLOG"),
+
+    REVIEW("rev");
 
     private String value;
 

@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lio.BlogApi.controllers.BaseController;
 import com.lio.BlogApi.models.dtos.custom.AppUserDetails;
-import com.lio.BlogApi.models.dtos.request.LoginRequestDTO;
-import com.lio.BlogApi.models.dtos.request.RegisterRequestDTO;
-import com.lio.BlogApi.models.dtos.response.ApiResponse;
-import com.lio.BlogApi.models.dtos.response.RegisterResponseDTO;
+import com.lio.BlogApi.models.dtos.request.user.LoginRequestDTO;
+import com.lio.BlogApi.models.dtos.request.user.RegisterRequestDTO;
+import com.lio.BlogApi.models.dtos.response.general.ApiResponse;
+import com.lio.BlogApi.models.dtos.response.user.RegisterResponseDTO;
 import com.lio.BlogApi.models.enums.Message;
 import com.lio.BlogApi.models.enums.SecretWord;
 import com.lio.BlogApi.services.common.jwtToken.JwtTokenService;

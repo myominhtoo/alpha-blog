@@ -12,11 +12,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Entity
 @Table(name = "reviews")
 @Data
+@Builder
 @AllArgsConstructor
 public class Review {
 
@@ -24,7 +26,7 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "contet")
+    @Column(name = "content")
     private String content;
 
     @Column(name = "created_date")
@@ -42,5 +44,11 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
+
+    /*
+     * edited for deleting
+     */
+    @Column(name = "is_delete")
+    private boolean isDelete;
 
 }

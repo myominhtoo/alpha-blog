@@ -1,4 +1,4 @@
-package com.lio.BlogApi.models.dtos.response;
+package com.lio.BlogApi.models.dtos.response.general;
 
 import java.time.LocalDateTime;
 import java.util.Map;

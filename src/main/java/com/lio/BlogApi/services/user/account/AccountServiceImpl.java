@@ -18,10 +18,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.lio.BlogApi.models.dtos.custom.EmailTemplate;
-import com.lio.BlogApi.models.dtos.request.LoginRequestDTO;
-import com.lio.BlogApi.models.dtos.request.RegisterRequestDTO;
-import com.lio.BlogApi.models.dtos.response.ApiResponse;
-import com.lio.BlogApi.models.dtos.response.RegisterResponseDTO;
+import com.lio.BlogApi.models.dtos.request.user.LoginRequestDTO;
+import com.lio.BlogApi.models.dtos.request.user.RegisterRequestDTO;
+import com.lio.BlogApi.models.dtos.response.general.ApiResponse;
+import com.lio.BlogApi.models.dtos.response.user.RegisterResponseDTO;
 import com.lio.BlogApi.models.entities.Account;
 import com.lio.BlogApi.models.enums.AccountStatus;
 import com.lio.BlogApi.models.enums.MailSubject;

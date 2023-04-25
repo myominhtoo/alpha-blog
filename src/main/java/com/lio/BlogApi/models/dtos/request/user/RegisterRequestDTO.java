@@ -1,4 +1,4 @@
-package com.lio.BlogApi.models.dtos.request;
+package com.lio.BlogApi.models.dtos.request.user;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;

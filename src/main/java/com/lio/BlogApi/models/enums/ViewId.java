@@ -9,7 +9,9 @@ public enum ViewId {
     SUBSCRIBER(7),
     CATEGORY(6),
     CATEGORY_IMAGE(20),
-    BLOG_IMAGE(20);
+    BLOG_IMAGE(20),
+
+    REVIEW(7);
 
     private Integer value;
 

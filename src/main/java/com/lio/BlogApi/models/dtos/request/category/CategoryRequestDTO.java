@@ -1,4 +1,4 @@
-package com.lio.BlogApi.models.dtos.request;
+package com.lio.BlogApi.models.dtos.request.category;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

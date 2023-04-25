@@ -12,11 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.lio.BlogApi.models.dtos.request.BlogRequestDTO;
-import com.lio.BlogApi.models.dtos.request.BlogUpdateRequestDTO;
-import com.lio.BlogApi.models.dtos.response.ApiResponse;
-import com.lio.BlogApi.models.dtos.response.BlogResponseDTO;
-import com.lio.BlogApi.models.dtos.response.CategoryResponseDTO;
+import com.lio.BlogApi.models.dtos.request.blog.BlogRequestDTO;
+import com.lio.BlogApi.models.dtos.request.blog.BlogUpdateRequestDTO;
+import com.lio.BlogApi.models.dtos.response.general.ApiResponse;
+import com.lio.BlogApi.models.dtos.response.blog.BlogResponseDTO;
+import com.lio.BlogApi.models.dtos.response.category.CategoryResponseDTO;
 import com.lio.BlogApi.models.entities.Blog;
 import com.lio.BlogApi.models.entities.Category;
 import com.lio.BlogApi.models.enums.Message;

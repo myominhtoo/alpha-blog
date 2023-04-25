@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lio.BlogApi.models.dtos.request.SubscriberRequestDTO;
-import com.lio.BlogApi.models.dtos.response.ApiResponse;
+import com.lio.BlogApi.models.dtos.request.subscriber.SubscriberRequestDTO;
+import com.lio.BlogApi.models.dtos.response.general.ApiResponse;
 import com.lio.BlogApi.models.entities.Subscriber;
 import com.lio.BlogApi.models.enums.Message;
 import com.lio.BlogApi.services.user.subscriber.SubscriberService;

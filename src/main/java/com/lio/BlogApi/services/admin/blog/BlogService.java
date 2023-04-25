@@ -4,10 +4,10 @@ import java.io.IOException;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.lio.BlogApi.models.dtos.request.BlogRequestDTO;
-import com.lio.BlogApi.models.dtos.request.BlogUpdateRequestDTO;
-import com.lio.BlogApi.models.dtos.response.ApiResponse;
-import com.lio.BlogApi.models.dtos.response.BlogResponseDTO;
+import com.lio.BlogApi.models.dtos.request.blog.BlogRequestDTO;
+import com.lio.BlogApi.models.dtos.request.blog.BlogUpdateRequestDTO;
+import com.lio.BlogApi.models.dtos.response.general.ApiResponse;
+import com.lio.BlogApi.models.dtos.response.blog.BlogResponseDTO;
 
 public interface BlogService {
 
