@@ -17,6 +17,7 @@ import static com.lio.BlogApi.models.constants.Index.BLOG_IMAGE_PATH;
 
 public class Test {
     public static void main(String[] args) throws IOException {
+
         // BufferedReader bufferedReader = new BufferedReader(
         // new FileReader(new
         // File("src/main/resources/static/mail-templates/mail-verification.txt")));
@@ -27,9 +28,11 @@ public class Test {
         // // TODO Auto-generated catch block
         // e.printStackTrace();
         // }
+        // }
         // bufferedReader.close();
-        // JwtTokenService tokenService = new JwtTokenServiceImpl();
-        // System.out.print(tokenService.getTokenPayload(null));
+         //JwtTokenService tokenService = new JwtTokenServiceImpl();
+         //System.out.print(tokenService.getTokenPayload(null));
+         //System.out.print(tokenService.getTokenPayload(null));
         // System.out.println(TextUtil.makeKeyword("react native is very hot now"));
         // System.out.print(System.getProperties().getProperty("java.class.path").split(";")[0].replace("target\\classes",
         // "assets"));

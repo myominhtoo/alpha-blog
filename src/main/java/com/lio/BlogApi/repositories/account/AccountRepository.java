@@ -14,6 +14,6 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     Optional<Account> findByViewId(String viewId);
 
-    Optional<Account> findByViewIdAndIsNotDelete(String viewId);
+    Optional<Account> findByViewIdAndIsDeleteFalse(String viewId);
 
 }

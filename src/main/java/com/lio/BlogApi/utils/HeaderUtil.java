@@ -13,7 +13,7 @@ public class HeaderUtil {
     public static HttpHeaders getHeadersFromMap(Map<String, String> map) {
         HttpHeaders headers = new HttpHeaders();
 
-        map.entrySet().stream()
+        map.entrySet()
                 .forEach(entry -> {
                     headers.add(entry.getKey(), entry.getValue());
                 });

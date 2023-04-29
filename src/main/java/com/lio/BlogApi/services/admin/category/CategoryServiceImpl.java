@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -196,9 +197,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     private List<CategoryResponseDTO> getCategoryResponse(List<Category> categories) {
         return categories.stream()
-                .map(category -> {
-                    return getCategoryResponse(category);
-                }).toList();
+                .map(this::getCategoryResponse).collect(Collectors.toList());
     }
     /*
      * end here

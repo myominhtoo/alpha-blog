@@ -16,10 +16,10 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
      */
     Optional<Review> findByViewId( String viewId );
 
-    Optional<Review> findByViewIdAndIsNotDelete( String viewId );
+    Optional<Review> findByViewIdAndIsDeleteFalse(String viewId );
 
-    List<Review> findAllByIsDelete();
+    List<Review> findAllByIsDeleteTrue();
 
-    List<Review> findAllByIsNotDelete();
+    List<Review> findAllByIsDeleteFalse();
 
 }

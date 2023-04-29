@@ -35,7 +35,7 @@ public class ReviewServiceImpl implements ReviewService {
     public ApiResponse<?> createReview(ReviewRequestDTO reviewRequestDTO) {
 
         Optional<Account> savedAccount$ = this.accountRepo
-                        .findByViewIdAndIsNotDelete(reviewRequestDTO.getAccountId());
+                        .findByViewIdAndIsDeleteFalse(reviewRequestDTO.getAccountId());
 
         if( savedAccount$.isEmpty() )
             return this.getInvalidBodyResponse();
@@ -54,7 +54,7 @@ public class ReviewServiceImpl implements ReviewService {
                 HttpStatus.OK,
                 HttpStatus.OK.value(),
                 Message.CREATE_REVIEW_SUCCESS.value(),
-                review
+                this.getReviewResponseFromReview(review)
         );
     }
 
@@ -62,13 +62,13 @@ public class ReviewServiceImpl implements ReviewService {
     @Transactional
     public ApiResponse<?> updatedReview( String reviewId , ReviewRequestDTO reviewRequestDTO) {
         Optional<Account> savedAccount$ = this.accountRepo
-                    .findByViewIdAndIsNotDelete(reviewRequestDTO.getAccountId());
+                    .findByViewIdAndIsDeleteFalse(reviewRequestDTO.getAccountId());
 
         if( savedAccount$.isEmpty())
             return this.getInvalidBodyResponse();
 
 
-        Optional<Review> savedReview$ = this.reviewRepo.findByViewIdAndIsNotDelete(reviewId);
+        Optional<Review> savedReview$ = this.reviewRepo.findByViewIdAndIsDeleteFalse(reviewId);
 
         if( savedReview$.isEmpty() && !savedReview$.get().getAccount().getViewId().equals(reviewRequestDTO.getAccountId()))
             return this.getInvalidBodyResponse();
@@ -83,12 +83,15 @@ public class ReviewServiceImpl implements ReviewService {
                 HttpStatus.OK,
                 HttpStatus.OK.value(),
                 Message.UPDATED_REVIEW_SUCCESS.value(),
-                null
+                this.getReviewResponseFromReview(savedReview)
         );
     }
 
     @Override
     public ReviewResponseDTO getReviewById(String reviewId) {
+        if( reviewId == null )
+            return null;
+
         Optional<Review> savedReview$ = this.reviewRepo.findByViewId(reviewId);
 
         return savedReview$
@@ -99,15 +102,15 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public List<ReviewResponseDTO> getReviews( boolean isDeleted ) {
         List<Review> savedReviews = isDeleted
-                                    ? this.reviewRepo.findAllByIsDelete()
-                                    : this.reviewRepo.findAllByIsNotDelete();
+                                    ? this.reviewRepo.findAllByIsDeleteTrue()
+                                    : this.reviewRepo.findAllByIsDeleteFalse();
         return this.getReviewsResponsesFromReviews(savedReviews);
     }
 
     @Override
     @Transactional
     public ApiResponse<?> deleteReview(String reviewId, String accountId) {
-        Optional<Review> savedReview$ = this.reviewRepo.findByViewIdAndIsNotDelete(reviewId);
+        Optional<Review> savedReview$ = this.reviewRepo.findByViewIdAndIsDeleteFalse(reviewId);
 
         if( savedReview$.isEmpty())
             return this.getInvalidBodyResponse();
@@ -135,9 +138,10 @@ public class ReviewServiceImpl implements ReviewService {
      */
      private ReviewResponseDTO getReviewResponseFromReview( Review review ){
          return ReviewResponseDTO.builder()
-                 .accountId(review.getViewId())
+                 .accountId(review.getAccount().getViewId())
                  .accountName(review.getAccount().getUsername())
                  .content(review.getContent())
+                 .reviewId(review.getViewId())
                  .createdDate(review.getCreatedDate())
                  .updatedDate(review.getUpdatedDate())
                  .build();

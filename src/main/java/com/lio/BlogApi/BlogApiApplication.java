@@ -7,6 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.lio.BlogApi.services.common.jwtToken.JwtTokenService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @SpringBootApplication
 public class BlogApiApplication implements CommandLineRunner {
 
@@ -15,9 +18,11 @@ public class BlogApiApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		String token = jwtTokenService.generateToken(null);
+		Map<String,String> map = new HashMap<>();
+		map.put("email","myominhtoo2003@gmail.com");
+		String token = jwtTokenService.generateToken(map);
 		// System.out.println(this.jwtTokenService.isTokenExpire(token));
-		System.out.println(this.jwtTokenService.isValidToken(token));
+		System.out.println(this.jwtTokenService.getTokenPayload(token));
 	}
 
 	public static void main(String[] args) {
