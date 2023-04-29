@@ -12,12 +12,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "blog_comments")
 @Data
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class BlogComment {
 
     @Id
@@ -45,5 +49,16 @@ public class BlogComment {
     @ManyToOne
     @JoinColumn(name = "parent_comment_id")
     private BlogComment parentComment;
+
+    /*
+     * edited for commentedAccount and blog
+     */
+    @ManyToOne
+    @JoinColumn( name = "commented_account_id")
+    private Account commentedAccount;
+
+    @ManyToOne
+    @JoinColumn( name = "blog_id" )
+    private Blog blog;
 
 }

@@ -12,7 +12,8 @@ public enum Prefix {
     CATEGORY_IMAGE("IMAGE_CATEGORY"),
     BLOG_IMAGE("IMAGE_BLOG"),
 
-    REVIEW("rev");
+    REVIEW("rev"),
+    BLOG_COMMENT("cmt");
 
     private String value;
 

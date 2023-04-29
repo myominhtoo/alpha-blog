@@ -42,7 +42,12 @@ public enum Message {
     DELETE_REVIEW_SUCCESS("Successfully deleted review!"),
     CREATE_REVIEW_SUCCESS("Successfully added review!"),
 
-    UPDATED_REVIEW_SUCCESS("Successfully edited review!"),
+    UPDATE_REVIEW_SUCCESS("Successfully edited review!"),
+
+    CREATE_COMMENT_SUCCESS("Successfully added comment!"),
+
+    UPDATE_COMMENT_SUCCESS("Successfully updated comment!"),
+    DELETE_COMMENT_SUCCESS("Successfully deleted comment!"),
 
     SUCCESS("Success!");
 

@@ -3,6 +3,7 @@ package com.lio.BlogApi.utils;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+import com.lio.BlogApi.models.enums.Message;
 import org.springframework.http.HttpStatus;
 
 import com.lio.BlogApi.models.dtos.response.general.ApiResponse;
@@ -37,6 +38,52 @@ public class ResponseUtil {
                 .ok(false)
                 .error(error)
                 .build();
+    }
+
+
+    public static <T> ApiResponse<?> invalidRequest(){
+        return ResponseUtil.errorResponse(
+                HttpStatus.BAD_REQUEST,
+                HttpStatus.BAD_REQUEST.value(),
+                Message.INVALID_REQUEST.value(),
+                ErrorMapUtil.getErrorMapFromValue(Message.INVALID_REQUEST.value())
+        );
+    }
+
+    public static <T> ApiResponse<?> invalidRequestBody(){
+        return ResponseUtil.errorResponse(
+                HttpStatus.BAD_REQUEST,
+                HttpStatus.BAD_REQUEST.value(),
+                Message.INVALID_REQUEST_BODY.value(),
+                ErrorMapUtil.getErrorMapFromValue(Message.INVALID_REQUEST_BODY.value())
+        );
+    }
+
+    public static <T> ApiResponse<?> success(){
+        return ResponseUtil.response(
+                HttpStatus.OK,
+                HttpStatus.OK.value(),
+                Message.SUCCESS.value(),
+                null
+        );
+    }
+
+    public static <T> ApiResponse<?> success( String message ){
+        return ResponseUtil.response(
+                HttpStatus.OK,
+                HttpStatus.OK.value(),
+                message,
+                null
+        );
+    }
+
+    public static <T> ApiResponse<?> success( String message , T data ){
+        return ResponseUtil.response(
+                HttpStatus.OK,
+                HttpStatus.OK.value(),
+                message,
+                data
+        );
     }
 
 }

@@ -11,7 +11,8 @@ public enum ViewId {
     CATEGORY_IMAGE(20),
     BLOG_IMAGE(20),
 
-    REVIEW(7);
+    REVIEW(7),
+    BLOG_COMMENT(12);
 
     private Integer value;
 

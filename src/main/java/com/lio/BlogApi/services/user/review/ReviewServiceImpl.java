@@ -82,7 +82,7 @@ public class ReviewServiceImpl implements ReviewService {
         return ResponseUtil.response(
                 HttpStatus.OK,
                 HttpStatus.OK.value(),
-                Message.UPDATED_REVIEW_SUCCESS.value(),
+                Message.UPDATE_REVIEW_SUCCESS.value(),
                 this.getReviewResponseFromReview(savedReview)
         );
     }
