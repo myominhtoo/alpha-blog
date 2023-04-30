@@ -86,4 +86,13 @@ public class ResponseUtil {
         );
     }
 
+    public static <T> ApiResponse<?> badRequest( String message , Map<String,String> errorMap ){
+        return ResponseUtil.errorResponse(
+                HttpStatus.BAD_REQUEST,
+                HttpStatus.BAD_REQUEST.value(),
+                message,
+                errorMap
+        );
+    }
+
 }

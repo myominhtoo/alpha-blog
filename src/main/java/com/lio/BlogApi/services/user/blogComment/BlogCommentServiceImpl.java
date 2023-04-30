@@ -65,8 +65,11 @@ public class BlogCommentServiceImpl implements  BlogCommentService {
                 .getBlogCommentEntityFromRequestDTO(
                         blogCommentRequestDTO ,
                         parentComment$.orElse(null),
-                        savedBlog$.get()
+                        savedBlog$.get(),
+                        savedAccount$.get()
                 );
+
+        this.blogCommentRepo.save(blogComment);
 
         if( blogComment.getParentComment() != null ){
             BlogComment parentComment = blogComment.getParentComment();
@@ -156,7 +159,12 @@ public class BlogCommentServiceImpl implements  BlogCommentService {
     /*
      * just for creating object
      */
-    public BlogComment getBlogCommentEntityFromRequestDTO(BlogCommentRequestDTO blogCommentRequestDTO , BlogComment parentComment , Blog blog ){
+    public BlogComment getBlogCommentEntityFromRequestDTO(
+            BlogCommentRequestDTO blogCommentRequestDTO ,
+            BlogComment parentComment ,
+            Blog blog ,
+            Account commentedAccount
+    ){
         return BlogComment.builder()
                 .content(blogCommentRequestDTO.getContent())
                 .viewId(GeneratorUtil.generateId(Prefix.BLOG_COMMENT.value(), ViewId.BLOG_COMMENT.bound()))
@@ -164,6 +172,7 @@ public class BlogCommentServiceImpl implements  BlogCommentService {
                 .replyCount(0)
                 .isDelete(false)
                 .blog(blog)
+                .commentedAccount(commentedAccount)
                 .parentComment(parentComment)
                 .build();
     }
@@ -176,7 +185,7 @@ public class BlogCommentServiceImpl implements  BlogCommentService {
                 .updatedDate(blogComment.getUpdatedDate())
                 .replyCount(blogComment.getReplyCount())
                 .blogId(blogComment.getBlog().getViewId())
-                .parentCommentId(blogComment.getParentComment().getViewId())
+                .parentCommentId(blogComment.getParentComment() == null ? null : blogComment.getParentComment().getViewId())
                 .commentedAccountId(blogComment.getCommentedAccount().getViewId())
                 .build();
     }
