@@ -95,4 +95,13 @@ public class ResponseUtil {
         );
     }
 
+    public static <T> ApiResponse<?> globalException(){
+        return ResponseUtil.errorResponse(
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                Message.UNEXPECTED_ERROR.value(),
+                ErrorMapUtil.getErrorMapFromValue(Message.UNEXPECTED_ERROR.value())
+        );
+    }
+
 }

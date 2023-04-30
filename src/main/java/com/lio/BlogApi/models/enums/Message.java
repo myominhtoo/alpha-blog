@@ -48,6 +48,7 @@ public enum Message {
 
     UPDATE_COMMENT_SUCCESS("Successfully updated comment!"),
     DELETE_COMMENT_SUCCESS("Successfully deleted comment!"),
+    UNEXPECTED_ERROR("Unexpected error was occurred!"),
 
     SUCCESS("Success!");
 
